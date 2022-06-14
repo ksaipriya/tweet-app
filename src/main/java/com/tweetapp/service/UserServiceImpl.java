@@ -40,13 +40,13 @@ public class UserServiceImpl implements UserService{
 
     //all the registered user
     public List<User> listUsers(){
-        return userRepo.findAll();
+        return (List<User>) userRepo.findAll();
     }
 
     //username as input -> list of users with that username as output
     @Override
     public List<User> findByUsername(String username) {
-        List<User> users = userRepo.findAll();
+        List<User> users = (List<User>) userRepo.findAll();
         List<User> usersByUname = new ArrayList<>();
         for (int i = 0; i < users.size(); i++) {
             if ((users.get(i).getUserName()).equals(username)) {
@@ -110,13 +110,13 @@ public class UserServiceImpl implements UserService{
     //all tweets
     @Override
     public List<Tweet> getAllTweets() {
-        return tweetRepo.findAll();
+        return (List<Tweet>) tweetRepo.findAll();
     }
 
     // all tweets of particular user
     @Override
     public List<Tweet> getAllTweetsOfUser(String username) {
-        List<Tweet> newTweet = tweetRepo.getTweetsByUsername(username);
+        List<Tweet> newTweet = tweetRepo.findTweetsByUsername(username);
         return newTweet;
     }
 
@@ -176,7 +176,7 @@ public class UserServiceImpl implements UserService{
     // all replies
     @Override
     public List<Reply> getAllReplies() {
-        return replyRepo.findAll();
+        return (List<Reply>) replyRepo.findAll();
     }
 
     // returns user specific to the id

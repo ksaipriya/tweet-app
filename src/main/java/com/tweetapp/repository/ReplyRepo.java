@@ -1,7 +1,11 @@
 package com.tweetapp.repository;
 
 import com.tweetapp.model.Reply;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.socialsignin.spring.data.dynamodb.repository.EnableScan;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ReplyRepo extends MongoRepository<Reply,String> {
+@EnableScan
+@Repository
+public interface ReplyRepo extends PagingAndSortingRepository<Reply,String> {
 }

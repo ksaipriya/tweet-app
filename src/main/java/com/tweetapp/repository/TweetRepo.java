@@ -1,15 +1,18 @@
 package com.tweetapp.repository;
 
 import com.tweetapp.model.Tweet;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+import org.socialsignin.spring.data.dynamodb.repository.EnableScan;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface TweetRepo extends MongoRepository<Tweet,String> {
-    @Query("{'username': ?0}")
-    List<Tweet> getTweetsByUsername(String username);
+@EnableScan
+@Repository
+public interface TweetRepo extends PagingAndSortingRepository<Tweet,String> {
+    // @Query("{'username': ?0}")
+    List<Tweet> findTweetsByUsername(String username);
 
-    @Query("{'_id':?0}")
+    // @Query("{'_id':?0}")
     Tweet findTweetById(String _id);
 }
