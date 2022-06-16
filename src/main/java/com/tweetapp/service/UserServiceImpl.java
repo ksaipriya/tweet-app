@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,8 +100,10 @@ public class UserServiceImpl implements UserService{
         int min = 100;
         String tweetid = "T" + Integer.toString((int)(Math.random()*(max-min+1)+min));
         newTweet.setTweetId(tweetid);
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
         LocalDateTime current =  LocalDateTime.now();
-        newTweet.setPostTime(current);
+        String formattedDateTime = current.format(formatter);
+        newTweet.setPostTime(formattedDateTime);
         List<String> likedUsers = new ArrayList<>();
         newTweet.setLikedUsers(likedUsers);
         tweetRepo.save(newTweet);
@@ -123,7 +126,7 @@ public class UserServiceImpl implements UserService{
     //logged in user can update tweet by providing the content
     @Override
     public Tweet updateTweet(String id, String content) {
-        Tweet updateTweet = tweetRepo.findTweetById(id);
+        Tweet updateTweet = tweetRepo.findByTweetId(id);
         updateTweet.setTweetContent(content);
         tweetRepo.save(updateTweet);
         return updateTweet;
@@ -132,7 +135,7 @@ public class UserServiceImpl implements UserService{
     //delete a particular tweet
     @Override
     public String deleteTweet(String id) {
-        Tweet deleteTweet = tweetRepo.findTweetById(id);
+        Tweet deleteTweet = tweetRepo.findByTweetId(id);
         String ret_str;
         if(deleteTweet!=null){
             tweetRepo.deleteById(id);
@@ -146,7 +149,7 @@ public class UserServiceImpl implements UserService{
     // tweet id & username as input -> like status is updated
     @Override
     public List<String> likeTweet(String id, String username) {
-        Tweet tweet = tweetRepo.findTweetById(id);
+        Tweet tweet = tweetRepo.findByTweetId(id);
         List<String> likedUsers  = tweet.getLikedUsers();
         if(id!=null && username!=null){
             likedUsers.add(username);
@@ -163,8 +166,10 @@ public class UserServiceImpl implements UserService{
         newReply.setTweetId(tweetid);
         newReply.setUsername(username);
         newReply.setReplyContent(tweetreply);
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
         LocalDateTime current =  LocalDateTime.now();
-        newReply.setReplyPostTime(current);
+        String formattedDateTime = current.format(formatter);
+        newReply.setReplyPostTime(formattedDateTime);
         int max=10000;
         int min = 100;
         String replyid = "Rep" + Integer.toString((int)(Math.random()*(max-min+1)+min));

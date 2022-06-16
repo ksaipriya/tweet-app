@@ -14,5 +14,5 @@ public interface TweetRepo extends PagingAndSortingRepository<Tweet,String> {
     List<Tweet> findTweetsByUsername(String username);
 
     // @Query("{'_id':?0}")
-    Tweet findTweetById(String _id);
+    Tweet findByTweetId(String tweetId);
 }

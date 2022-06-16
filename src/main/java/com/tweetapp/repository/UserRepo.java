@@ -12,6 +12,6 @@ public interface UserRepo extends PagingAndSortingRepository<User,String> {
     User findUserByUserNameAndPassword(String username, String password);
 
     // @Query("{'_id': ?0}")
-    User findUserByUserId(String userid);
+    User findUserByUserId(String userId);
 
 }

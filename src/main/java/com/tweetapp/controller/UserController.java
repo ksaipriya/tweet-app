@@ -13,11 +13,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1.0/tweets")
 public class UserController {
 
     private final Producer producer;
+
     @Autowired
     private UserRepo userRepo;
 
@@ -115,7 +116,6 @@ public class UserController {
     public List<Reply> listReplies(){
         return userService.getAllReplies();
     }
-
     @Autowired
     UserController(Producer producer){
         this.producer = producer;
